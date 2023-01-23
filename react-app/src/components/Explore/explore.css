@@ -1,0 +1,128 @@
+.page-container {
+  /* border: green solid  5px; */
+  /* position: relative; */
+  /* padding-top: 5%; */
+  padding-top: 86px;
+
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* display: grid;
+    grid-template-columns: 2fr;
+    grid-template-rows: 2fr; */
+
+  width: 100vw;
+  text-decoration: none;
+}
+
+
+.profile-cards {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  /* background-color: pink; */
+  max-width: 900px;
+  width: 80vw;
+  min-width: 690px;
+  align-items: center;
+  justify-items: center;
+}
+
+.card-container {
+
+  /* background-color: blue; */
+  margin-bottom: 20px;
+  border-radius: 3%;
+}
+
+/* holds card-box */
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #838383 solid 1px;
+  height: 380px;
+  width: 330px;
+  background-color: black;
+  /* margin-bottom: 40px; */
+  border-radius: 3%;
+  /* box-shadow: ; */
+  text-decoration: none;
+}
+
+.username-header {
+  font-size: 25px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 2%;
+  width: 225px;
+  text-align: center;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  /* border: brown solid 1px; */
+  height: 50px;
+  text-decoration: none;
+}
+
+#img-container {
+  height: 250px;
+  width: 200px;
+}
+
+.admin-profile {
+  height: 100%;
+  width: 100%;
+}
+
+.admin-bio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* padding-top: 10%;
+    position: relative;
+    bottom: 189px; */
+  text-decoration: none;
+}
+
+.card-box {
+  /* border: wheat solid 3px; */
+  width: 80%;
+  /* height: 200px; */
+  /* height: 40vh; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.header-name {
+  /* border: yellowgreen solid 1px; */
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  padding-bottom: 10px;
+  text-decoration: none;
+}
+
+.rotating-border::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* .loading{
+    position: relative;
+    left: 50vw;
+    top: 25vw;
+} */
