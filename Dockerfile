@@ -1,11 +1,9 @@
 # Start with the python:3.9 image
 FROM python:3.9
-
-EXPOSE 3000
 # Set the following enviroment variables
 #
 # REACT_APP_BASE_URL -> Your deployment URL
-ENV REACT_APP_BASE_URL=postgres://hvrukmxnoewqhc:53a80367225c11840eb0e88d2f31a04f322e3624e6562c7689c928d2dc7e67c1@ec2-34-230-153-41.compute-1.amazonaws.com:5432/dc42t3121c3rg7
+ENV REACT_APP_BASE_URL=https://pixtagram.herokuapp.com/
 # FLASK_APP -> entry point to your flask app
 ENV FLASK_APP=app
 # FLASK_ENV -> Tell flask to use the production server
@@ -13,7 +11,7 @@ ENV FLASK_ENV=production
 # SQLALCHEMY_ECHO -> Just set it to true
 ENV SQLALCHEMY_ECHO=True
 # Set the directory for upcoming commands to /var/www
-WORKDIR /react-app
+WORKDIR /var/www
 # Copy all the files from your repo to the working directory
 COPY . .
 # Copy the built react app (it’s built for us) from the
