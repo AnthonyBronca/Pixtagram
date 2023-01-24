@@ -1,5 +1,7 @@
 # Start with the python:3.9 image
 FROM python:3.9
+
+EXPOSE 3000
 # Set the following enviroment variables
 #
 # REACT_APP_BASE_URL -> Your deployment URL
@@ -11,7 +13,7 @@ ENV FLASK_ENV=production
 # SQLALCHEMY_ECHO -> Just set it to true
 ENV SQLALCHEMY_ECHO=True
 # Set the directory for upcoming commands to /var/www
-WORKDIR /var/www
+WORKDIR /react-app
 # Copy all the files from your repo to the working directory
 COPY . .
 # Copy the built react app (it’s built for us) from the
