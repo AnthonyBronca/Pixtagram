@@ -26,19 +26,15 @@ function SearchBar() {
                 id="users-search"
                 getOptionLabel={(jsonResults) => `${jsonResults.username}`}
                 options={jsonResults.length === 0 ? [] : jsonResults}
-                // isOptionEqualToValue={(option, value) => option.username === value.username}
                 noOptionsText={'NO PEOPLE FOUND'}
-                style={{ width: 250, margin:15, 'postion': 'relative', 'left': 10 }}
-                // shouldItemRender={(option, value) => option.username.toLowercase().indexOf(value.toLowercase()) > -1}
+                style={{ width: 250, margin: 15, 'postion': 'relative', 'left': 10 }}
                 renderOption={(option) => (
                     <div onClick={() => { history.push(`/users/${option.id}`) }}>
                         <React.Fragment >
 
                             <span
                                 style={{ cursor: 'pointer' }}
-                            // onClick={()=> {window.location.href = `/users/${option.id}`}}>
-                            //     {`${option.username}`}
-                            // </span>
+
                             >
                                 {`${option.username}`}
                             </span>
@@ -50,7 +46,6 @@ function SearchBar() {
                         {...params}
                         id='text-field'
                         placeholder='Search...'
-                    // inputProps={{style: {color: 'white'}}}
                     />)}
             />
         </>
