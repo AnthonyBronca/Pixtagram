@@ -69,19 +69,19 @@ export const addLikeThunk = (post_id, user_id) => async (dispatch) => {
   dispatch(addLike(post));
 };
 
-// export const removeLikeThunk = (post_id, user_id) => async (dispatch) => {
-//   // console.log("you've hit removeLikeThunk!")
-//   const options = {
-//     method: "PUT",
-//   };
-//   const response = await fetch(
-//     `/api/posts/${post_id}/${user_id}/remove`,
-//     options
-//   );
-//   // const post = await response.json()
+export const removeLikeThunk = (post_id, user_id) => async (dispatch) => {
+  // console.log("you've hit removeLikeThunk!")
+  const options = {
+    method: "PUT",
+  };
+  const response = await fetch(
+    `/api/posts/${post_id}/${user_id}/remove`,
+    options
+  );
+  // const post = await response.json()
 
-//   // dispatch(addLike(post))
-// };
+  // dispatch(addLike(post))
+};
 
 // create post
 export const createPostThunk = (userId, form) => async (dispatch) => {
