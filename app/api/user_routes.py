@@ -40,22 +40,14 @@ def user(id):
 @user_routes.route('/<int:id>/edit', methods=["GET","PUT"])
 @login_required
 def edit_user(id):
-
-    # print("request.files!!!! ================== \n\n", request.files)
-    # data = request.data
-    # profile_pic_url = request.json["profile_pic_url"]
-    # image = request.json["profile_pic_url"]
-    # print("profile pic \n\n", profile_pic_url)
     user = User.query.get(id)
     form = EditUserForm() #form is coming from thunk? we can print form.data after this
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
-        # url = form.data['profile_pic_url']
 
         if "profile_pic_url" in request.files:
-        #     return {"errors": "image required"}, 400
             image = request.files["profile_pic_url"]
             print("image ======== \n\n", image)
             if not allowed_file(image.filename):
@@ -66,9 +58,6 @@ def edit_user(id):
             upload = upload_file_to_s3(image)
 
             if "url" not in upload:
-                # if the dictionary doesn't have a url key
-                # it means that there was an error when we tried to upload
-                # so we send back that error message
                 return upload, 400
 
             url = upload["url"]
@@ -77,8 +66,6 @@ def edit_user(id):
 
 
         user.full_name = form.data['full_name']
-        # user.profile_pic_url = form.data['profile_pic_url']
-        # user.profile_pic_url = url
         user.bio = form.data['bio']
         db.session.add(user)
         db.session.commit()
@@ -86,19 +73,6 @@ def edit_user(id):
         return {"user": user.to_dict()} #to_dict translates a user class to dic (fake json)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
-'''
-    example for possible follower/s query
-    users = User.query.all().filter(userId == followerId)
-'''
-
-'''
-example delete query
-
-    person = user.query.get(id)
-    if person == True: person.delete()
-
-'''
 
 
 # Delete one User
@@ -114,7 +88,6 @@ def delete_user(id):
 
 
 #Get all users for Search feature
-
 @user_routes.route('/all', methods=['GET'])
 @login_required
 def get_all_users():
@@ -135,15 +108,8 @@ def get_all_admins():
 @user_routes.route('/followers/<int:user_id>', methods=['GET'])
 @login_required
 def get_all_followers(user_id):
-    # followers = Follow.query.filter(Follow.following_id == user_id).join(User, User.id == Follow.follower_id).all()
     followers = Follow.query.filter(Follow.following_id == user_id).all()
-    # print("\n\n followers id \n\n", followers[0].id)
-    # print("\n\n followers \n\n", followers)
 
-    # larry = User.query.get(followers[0].follower_id)
-
-
-    # print("HELLO \n\n", isinstance(User.query.get(followers[0].id), type(None))
     # print("HELLO LARRY \n\n", larry)
 
 
@@ -164,13 +130,9 @@ def get_all_followers(user_id):
 @user_routes.route('/following/<int:user_id>', methods=['GET'])
 @login_required
 def get_all_following(user_id):
-    # followers = Follow.query.filter(Follow.following_id == user_id).join(User, User.id == Follow.follower_id).all()
     followings = Follow.query.filter(Follow.follower_id == user_id).all()
     user_following = {follow.id: User.query.get(follow.following_id).to_dict() for follow in followings}
 
-    # print("\n\n followers \n\n", followers)
-    # user_followers = {follower.id: follower.to_dict() for follower in followers}
-    # print("\n\n user_followers", user_following)
     return user_following
 
 @user_routes.route('/follow/<int:user_id>/<int:following_user_id>', methods=['PUT'])
@@ -189,26 +151,13 @@ def follow(user_id, following_user_id):
 @login_required
 # def unfollow(user_id, following_user_id):
 def unfollow(user_id, following_user_id):
-    # print("HELLO????? \n\n")
     ids = Follow.query.filter(Follow.follower_id == user_id).all()
-    print("SHOW ME IDs \n\n", ids)
-    # follow = Follow.query.filter(Follow.follower_id == )
-    # print("Just in case - api \n\n", new_follow.to_dict())
-
     um = filter(lambda x: x.following_id == following_user_id, ids)
 
     final_follows_list = list(um)
-    # print("THIS IS UM \n\n", final_follows_list)
-    # db.session.add(new_follow)
-    # db.session.commit()
+
     for follow in final_follows_list :
         db.session.delete(follow)
 
     db.session.commit()
-
-    # print("FINAL FOLLOWS LIST \n\n", {"final_follows":final_follows_list})
     return {"final_follows":"YOU DID IT ---->"};
-    # return new_follow.to_dict()
-
-
-    # pass

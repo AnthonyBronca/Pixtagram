@@ -11,7 +11,7 @@ const addAllAdmins = (admins) => {
 export const getAllAdminsThunk = () => async (dispatch) => {
     const response = await fetch('/api/users/admins')
     const admins = await response.json()
-    dispatch(addAllAdmins(admins)) //admins is an obj
+    dispatch(addAllAdmins(admins))
 }
 
 let initialState = {}

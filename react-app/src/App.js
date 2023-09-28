@@ -10,31 +10,19 @@ import User from "./components/UserPages/Profile";
 import EditUser from "./components/UserPages/EditUser";
 import Splash from "./components/Splash/Splash";
 import { authenticate } from "./store/session";
-// import { getAllUsersThunk } from "./store/user";
 import Post from "./components/Post/Post";
 import EditPost from "./components/PostPages/EditPost";
 import Explore from "./components/Explore/Explore";
-// import AnimatedBackground from "./components/AnimatedBackground/AnimatedBackground";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  // const users = useSelector((state) => state.userReducer.users)
   const session = useSelector((state) => state.session.user);
-
-  // console.log("SESSION FROM APP.JS",session)
-
-  // console.log(users)
-
-  // const pageNotFound = () => {
-  //   return <h1>Page Not Found</h1>;
-  // };
 
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      // await dispatch(getAllUsersThunk())
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -51,10 +39,8 @@ function App() {
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
-        {/* <div className="under-nav"> */}
         <ProtectedRoute path="/users/:userId/edit" exact={true}>
           <EditUser />
-          {/* <EditUser users={users}/> */}
         </ProtectedRoute>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
@@ -73,7 +59,6 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/posts/:postId/edit" exact={true}>
           <EditPost />
-          {/* <EditUser users={users}/> */}
         </ProtectedRoute>
         <ProtectedRoute path="/explore-page" exact={true}>
           <Explore />
@@ -82,10 +67,6 @@ function App() {
           <PageNotFound />
         </Route>
         <Route render={() => <Redirect to={{pathname: "/page-not-found"}} />} />
-        {/* </div> */}
-        {/* <Route path="/">
-          <PageNotFound />
-        </Route> */}
         <PageNotFound />
       </Switch>
     </BrowserRouter>

@@ -7,21 +7,14 @@ function PostModal({ postId, show }) {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
-  // const post = useSelector((state) => state?.posts?.post);
   const [delModal, setDelModal] = useState(false);
-  // const [showPostOptions, setShowPostOptions] = useState(show);
-
-  // const userId = post?.user_id;
 
   const openDelModal = (e) => {
     setDelModal(true);
   };
 
-  // console.log(pathname !== "/");
   const deletePost = (e) => {
-    // console.log('PATHNAME BEFORE THUNK', pathname)
     dispatch(deletePostThunk(postId));
-    // console.log('PATHNAME AFTER THUNK', pathname)
     if (pathname === "/") {
       window.location.reload();
     } else history.push('/');
@@ -40,9 +33,6 @@ function PostModal({ postId, show }) {
           <div className="delPostBtnFinal" onClick={deletePost}>
             Delete
           </div>
-          {/* <div className="cancelPostButton" onClick={(e) => setDelModal(false)}>
-            Cancel
-          </div> */}
         </div>
       )}
       {!delModal && (

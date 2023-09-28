@@ -20,15 +20,12 @@ def username_exists(form, field):
         raise ValidationError('Username is already in use')
 
 def name_length_check(form, field):
-    # print(dir(field.label))
-    # print(field.label.text)
+
     name = field.data
     if (field.label.text == "Full Name"):
         if len(name) > 50:
             raise ValidationError(f'{field.label.text} must be less than 50 characters')
-    # if (field.label.text == "Username"):
-    #     if len(name) > 40:
-    #         raise ValidationError(f'{field.label.text} must be less than 40 characters')
+
     if (field.label.text == "Password" or field.label.text == "Username"):
         if len(name) > 30:
             raise ValidationError(f'{field.label.text} must be less than 30 characters')

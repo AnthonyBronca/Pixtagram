@@ -69,19 +69,19 @@ export const addLikeThunk = (post_id, user_id) => async (dispatch) => {
   dispatch(addLike(post));
 };
 
-export const removeLikeThunk = (post_id, user_id) => async (dispatch) => {
-  // console.log("you've hit removeLikeThunk!")
-  const options = {
-    method: "PUT",
-  };
-  const response = await fetch(
-    `/api/posts/${post_id}/${user_id}/remove`,
-    options
-  );
-  // const post = await response.json()
-  // console.log("post in remove like thunk", post)
-  // dispatch(addLike(post))
-};
+// export const removeLikeThunk = (post_id, user_id) => async (dispatch) => {
+//   // console.log("you've hit removeLikeThunk!")
+//   const options = {
+//     method: "PUT",
+//   };
+//   const response = await fetch(
+//     `/api/posts/${post_id}/${user_id}/remove`,
+//     options
+//   );
+//   // const post = await response.json()
+
+//   // dispatch(addLike(post))
+// };
 
 // create post
 export const createPostThunk = (userId, form) => async (dispatch) => {
@@ -93,34 +93,22 @@ export const createPostThunk = (userId, form) => async (dispatch) => {
 
   const option = {
     method: "POST",
-    // headers: {
-    //   "Content-Type": "application/x-www-form-urlencoded",
-    // },
     body: formData,
   };
-  // console.log('INSIDE CREATE POST THUNK \n\n');
   const response = await fetch(`/api/posts/${userId}/new`, option);
-  // console.log('FETCH RESPONSE FROM CREATE POST', response);
   if (response.ok) {
     const post = await response.json();
-    // console.log(post, "one post from the thunk!")
-    // dispatch(createPost(post));
     dispatch(getOnePost(post));
     return post;
   } else if (response.status < 500) {
-    // console.log("THUNK RESPONSE IS NOT OK but less than 500")
     const data = await response.json();
-    // console.log("DATA FROM CREATE THUNK", data)
     if (data.errors) {
-      // console.log("DATA.ERRORS IS TRUE", data.errors)
-      // console.log("data in thunk with errors", data)
 
       return data;
     } else {
       return ["An error occurred. Please try again."];
     }
   }
-  // return response
 };
 
 // Edit Post Thunk
@@ -129,23 +117,18 @@ export const editPostThunk = (postId, form) => async (dispatch) => {
   const formData = new FormData();
 
   formData.append("caption", caption);
-  // console.log("FORMDATA \n\n", formData["caption"])
 
   const option = {
     method: "PUT",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: formData,
   };
-
-  // console.log("option \n\n", option)
-  // console.log("option.body \n\n", option.body)
 
   const response = await fetch(`/api/posts/${postId}/edit`, option);
   if (response.ok) {
     const post = await response.json();
-    // dispatch(editPost(user));
     dispatch(getOnePost(post));
     return post;
   } else if (response.status < 500) {
@@ -161,7 +144,6 @@ export const editPostThunk = (postId, form) => async (dispatch) => {
 
 // Delete Post Think
 export const deletePostThunk = (postId) => async (dispatch) => {
-  // console.log('<--------- HELLO From DELETE POST THUNK -------->')
   const response = await fetch(`/api/posts/${postId}/delete`, {
     method: "DELETE",
   });
@@ -187,26 +169,8 @@ export default function posts(state = initialState, action) {
       return newState;
     case DELETE_POST:
       newState = { ...state };
-      // console.log('HELLO FROM DELETE REDUCER')
       delete newState.post;
       return newState;
-    // case ADD_LIKE:
-    //   newState = { ...state }
-    //   const upatedLike = action.payload.post_likes //array of likes
-    //   const incomingPostId = action.payload.id
-    //   const posts = newState.allPosts.posts
-    //   // const oldPost = posts.filter(post => {
-    //   //   if (post.id === incomingPostId) {
-    //   //     return post
-    //   //   }
-    //   // })
-
-    //   posts.forEach(post =>{
-    //     if(post.id === incomingPostId){
-    //       post.post_likes = upatedLike
-    //     }
-    //   })
-    //   return newState
     default:
       return state;
   }

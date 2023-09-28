@@ -1,6 +1,5 @@
 from email.policy import default
 import datetime
-# from turtle import back
 from .db import db
 from .likes import likes
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,9 +20,6 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
-    '''
-    cascading ex:
-    '''
 
     posts = db.relationship('Post', cascade = 'all, delete', back_populates = 'user')
     comments = db.relationship('Comment', back_populates = 'user', cascade='all, delete')
@@ -53,7 +49,5 @@ class User(db.Model, UserMixin):
             'verified': self.verified,
             'following' : [follow.to_dict() for follow in self.follower],
             'followers': [follower.to_dict() for follower in self.following]
-            # 'followers': {follower.id: follower.to_dict() for follower in self.following}
 
-            # 'post': [post.to_dict() for post in self.posts]
         }

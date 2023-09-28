@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-// import * as sessionActions from "../../store/session";
-// import { getUserThunk } from "../../store/user";
 import './index.css'
 import LoadingSpinner from "../Spinner/Spinner";
 import { findUsersThunk } from "../../store/search";
@@ -19,7 +17,7 @@ function SearchModal({myOptions}) {
     const [isLoaded, setIsLoaded] = useState(false)
     const [users, setUsers] = useState()
     const [isLoading, setIsLoading] = useState(false)
-    // const [allPeople, setAllPeople] = useState([])
+
     const findUsers = async (e) => {
         setIsLoading(true)
         e.preventDefault()
@@ -27,8 +25,7 @@ function SearchModal({myOptions}) {
         const response = await fetch('/api/users/all')
         const people = await response.json()
         let allUsers = people.users
-        // console.log(allUsers)
-        // setAllPeople(allUsers)
+
         setUsers(allUsers)
         setIsLoaded(true)
         dispatch(findUsersThunk())

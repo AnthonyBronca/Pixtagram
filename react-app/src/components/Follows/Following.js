@@ -9,8 +9,6 @@ function Following({userId, hideFollowing}) {
     const history = useHistory()
     const followingObj = useSelector((state) => state.userReducer.userFollowing)
 
-    // console.log("Followers from COMPONENT", followersObj)
-
     let following;
 
     if (followingObj) {

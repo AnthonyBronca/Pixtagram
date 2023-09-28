@@ -24,7 +24,6 @@ const SignUpForm = () => {
     if (password === repeatPassword) {
       const data = await dispatch(signUp(full_name, username, email, password));
       if (data) {
-        // console.log('FROM SIGNUP--DATA', data)
         setErrors(data)
       }
     } else {
@@ -43,8 +42,6 @@ const SignUpForm = () => {
       setErrors(data);
     }
   }
-
-  // console.log('ERRORS FROM SINGNUP', errors)
 
 
   const updateFullName = (e) => {
@@ -150,11 +147,7 @@ const SignUpForm = () => {
                   <div id='disclaimer'>
                     <p className='disc-text'>By signing up, you agree to our Terms, Data Policy, and Cookies Policy.</p>
                   </div>
-                  {/* <div>
-                      {errors.map((error, ind) => (
-                        <div id='errors' key={ind}>{error}</div>
-                      ))}
-                  </div> */}
+
                   <button
                     disabled={
                       !full_name ||

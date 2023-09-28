@@ -1,48 +1,33 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-// import LoginForm from "../auth/LoginForm";
 import "./Splash.css";
 import { getUserThunk } from "../../store/user";
 import { dotDotDotIcon } from "./SplashIcons";
 import { addLikeThunk, getAllPostsThunk, removeLikeThunk } from "../../store/post";
 import LoadingSpinner from "../Spinner/Spinner";
 import { NavLink } from "react-router-dom";
-// import CheckMark from "../CheckMark/CheckMark";
 import checkmark from "../CheckMark/checkmark.png";
-// import { getCommentsThunk } from "../../store/comment";
 import SplashComments from "./SplashComments";
-// import { likeHeartIcon, likeFilledHeartIcon } from "./SplashIcons";
-// import { likeHeartFilledIn } from "../Post/postIcons";
 import PostModal from "../Post/PostModal";
 import Likes from "./Likes";
 import LikesModal from "../Post/LikesModal";
 
 function Splash() {
   const dispatch = useDispatch();
-  // const history = useHistory();
   const id = useSelector((state) => state.session.user.id);
   const posts = useSelector((state) => state?.posts?.allPosts?.posts);
-  //   console.log(posts);
 
-  // const [isLoaded, setIsLoaded] = useState(false);
   const [showPostOptions, setShowPostOptions] = useState(false);
   const [showLikes, setShowLikes] = useState(false);
   const [currPost, setCurrPost] = useState()
 
   const [postForViewLikes, setPostForViewLikes] = useState()
-  // const [heartState, setHeartState] = useState(likeHeartIcon)
 
   useEffect(() => {
     dispatch(getUserThunk(id)).then(() => dispatch(getAllPostsThunk()));
-    // .then(() => dispatch(getCommentsThunk()))
   }, [dispatch]);
 
-  // const sendToProfile = (e, id) => {
-  //   e.stopPropagation();
-  //   // console.log("wtf");
-  //   history.push(`/users/${id}`);
-  // };
 
   if (!id) {
     return <Redirect to="/login" />;
@@ -59,38 +44,8 @@ function Splash() {
     setCurrPost(postId)
     setShowPostOptions(true);
   };
-
-//   async function likeAPost(e, postId, userId) {
-//     e.stopPropagation();
-//     setHeartState(likeHeartFilledIn)
-//     await dispatch(addLikeThunk(postId, userId));
-//     await dispatch(getAllPostsThunk())
-//     console.log(postId, "this is postId");
-//     console.log(userId, "this is the current person signed in");
-//   }
-
-//   async function removeLike(e, postId, userId) {
-//     e.stopPropagation();
-//     setHeartState(likeHeartIcon)
-//     await dispatch(removeLikeThunk(postId, userId))
-//     await dispatch(getAllPostsThunk())
-//   }
-
-// const likeOrRemoveLike = (e, postId, userId) => {
-//   console.log(heartState === likeHeartIcon)
-//   console.log("filled in", heartState === likeHeartFilledIn)
-//   if (heartState === likeHeartIcon) {
-//     console.log("heart is not filled in!")
-
-//     return likeAPost(e, postId, userId)
-//   } else if (heartState === likeHeartFilledIn) {
-//     return removeLike(e, postId, userId)
-//   }
-// }
-
   return (
     <>
-      {/* <div className="home-page-body"> */}
         {showPostOptions && (
           <>
             <div className="backgroundFeed">
@@ -198,9 +153,6 @@ function Splash() {
                 <div className="bottom-post-feed">
                   <div>
                     <Likes post={post} sessionId={id}/>
-                    {/* {Object.keys(post.post_likes).length === 0 && (
-                      <div></div>
-                    )} */}
                     {Object.keys(post.post_likes).length === 1 && (
 
                     <div className="feedHowManyLikes" onClick={() => openPeopleLikes(post.id, post)}>1 like</div>
@@ -210,45 +162,8 @@ function Splash() {
                     )}
                   </div>
 
-
-                  {/* <div className="likes-post-feed"> */}
-                    {/* <div
-                      className="heart-icon"
-                      style={{ width: "30px" }}
-                      onClick={(e) => likeAPost(e, post.id, id)}
-                    >
-                      {post.post_likes[0] === undefined
-                        ? likeHeartIcon
-                        : post.post_likes.includes(id)
-                        ? likeHeartFilledIn
-                        : likeHeartFilledIn}
-                    </div> */}
-                    {/* <div
-                      className="heart-icon"
-                      style={{ width: "30px" }}
-                      // onClick={(e) => likeAPost(e, post.id, id)}
-                      onClick={(e) => likeOrRemoveLike(e, post.id, id)}
-                    > */}
-                      {/* {Object.keys(post.post_likes).includes(id) ? likeHeartFilledIn : likeHeartIcon }
-                      {heartState} */}
-
-                      {/* {Object.keys(post.post_likes).length === 0
-                        ? likeHeartIcon
-                        : Object.keys(post.post_likes).includes(id)
-                        ? likeHeartFilledIn
-                        : likeHeartFilledIn} */}
-                    {/* </div> */}
-                  {/* </div> */}
-                  {}
-                  {/* <div>{post.post_likes.length} likes</div> */}
-                  {/* <div className="feedHowManyLikes">{Object.keys(post.post_likes).length} likes</div> */}
-
                   <div className="opinionsBox">
                     <div className="post-caption-feed">
-                      {/* <img
-                          src={post.user.profile_pic_url}
-                          className="user-profile-pic-caption"
-                        ></img> */}
                       <NavLink
                         id="id-nav"
                         style={{
@@ -278,10 +193,7 @@ function Splash() {
         ) : (
           <LoadingSpinner />
         )}
-
       </div>
-      {/* <button onClick={(e) => goToProfile(e)}>Go to profile</button> */}
-      {/* </div> */}
     </>
   );
 }

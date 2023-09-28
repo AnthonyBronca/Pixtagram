@@ -42,8 +42,6 @@ export const getAllUsersThunk = () => async (dispatch) => {
     const users = await response.json();
     dispatch(getAllUsers(users));
 
-    // console.log(users.users)
-
     return users.users;
   }
 };
@@ -52,7 +50,6 @@ export const getAllUsersThunk = () => async (dispatch) => {
 export const getUserThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}`);
   if (response.ok) {
-    // console.log('woahhhhh it looks like you should not have gotten here')
     const user = await response.json();
     dispatch(getUser(user));
     return user
@@ -63,11 +60,9 @@ export const getUserThunk = (userId) => async (dispatch) => {
 // Get Followers
 export const getFollowersThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/followers/${userId}`);
-  // console.log("THUNK RES", response);
 
   if (response.ok) {
     const followers = await response.json();
-    // console.log('HERE ARE YOUR FOLLOWERS \n\n', followers)
     dispatch(getFollowers(followers));
     return followers
   }
@@ -79,7 +74,6 @@ export const getFollowingThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/following/${userId}`);
   if (response.ok) {
     const following = await response.json();
-    // console.log('HERE is your following \n\n', following)
     dispatch(getFollowing(following));
     return following
   }
@@ -112,7 +106,6 @@ export const editUserThunk = (userId, form) => async (dispatch) => {
   formData.append("full_name", full_name);
   formData.append("profile_pic_url", profile_pic_url);
   formData.append("bio", bio);
-  // console.log("FORMDATA \n\n", formData["full_name"])
 
 
   const option = {
@@ -122,9 +115,6 @@ export const editUserThunk = (userId, form) => async (dispatch) => {
     // },
     body: formData,
   };
-
-  // console.log("option \n\n", option)
-  // console.log("option.body \n\n", option.body)
 
   const response = await fetch(`/api/users/${userId}/edit`, option);
   if (response.ok) {

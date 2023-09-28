@@ -14,13 +14,12 @@ export default function daysSincePost(post) {
     Dec: 12
   };
 
-  let postedDate = post.created_at.split(" "); //splits the postedDate into parts [wed, 2022, jun 1 time gmt]
-  let convertedMonth; // returns Jun
+  let postedDate = post.created_at.split(" ");
+  let convertedMonth;
   for (let key in calendar) {
-    //iterates calendar
     if (key === postedDate[2]) {
-      //finds the converted month post was created
-      convertedMonth = calendar[key]; //assigns the value of convertedMonth
+
+      convertedMonth = calendar[key];
     }
   }
 
@@ -42,15 +41,12 @@ export default function daysSincePost(post) {
   ];
   const today = [year, month + 1, day];
 
-  // console.log(dateCreated[0] - year, "better be 0")
   const calcDate = calculator(today, datePosted);
   return calcDate;
 }
 
 const calculator = (today, datePosted) => {
-  //td [2024, 12, 5]
-  //db [2022, 6, 1]
-  //     2    6  4
+
 
   let yrsSince = today[0] - datePosted[0]; //0
   let monthsSince = today[1] - datePosted[1]; //0

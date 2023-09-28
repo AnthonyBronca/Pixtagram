@@ -3,10 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createCommentThunk,
 } from "../../store/comment";
-// import LoadingSpinner from "../Spinner/Spinner";
-// import { deleteCommentThunk } from "../../store/comment";
-// import checkmark from "../CheckMark/checkmark.png";
-// import { closeButton } from "../NavBar/Navicons";
 import { NavLink } from "react-router-dom";
 import { getAllPostsThunk } from "../../store/post";
 
@@ -14,33 +10,16 @@ import { getAllPostsThunk } from "../../store/post";
 import "./SplashComments.css";
 
 function SplashComments({ post }) {
-  // console.log('one post MAICA \n\n', post)
   const postId = post.id;
   const dispatch = useDispatch();
-  // const history = useHistory();
 
   const [text, setText] = useState("");
   const [errors, setErrors] = useState([]);
-  // const [showMore, setShowMore] = useState(false);
-
-  // const commentsFromPostState = useSelector(
-  //   (state) => state?.posts?.allPosts?.posts?.[post]?.comments
-  // );
-
-
 
   const comments = post.comments;
 
   const currUser = useSelector((state) => state?.session?.user?.id);
 
-
-  //will delete the comment if it belongs to the user - need to find a way to get current comment it
-  // const deleteComment = async (e, commentId) => {
-  //     console.log("What is the thunk getting?", commentId)
-  //     await dispatch(deleteCommentThunk(commentId)).then(() => dispatch(getCommentsThunk(postId)))
-  //   }
-
-  //will post a comment
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -61,12 +40,9 @@ function SplashComments({ post }) {
       {comments && (
         <>
           <div id="s-parent">
-            {/* Only render the following if there are comments*/}
             {comments.length > 0 && (
               <>
                 <div id="s-comment-container">
-                  {/* First Comment */}
-                  {/* If post has more than one comment render this */}
                   {comments.length === 1 && (
                     <>
                       <div id="username-comment">
@@ -80,7 +56,6 @@ function SplashComments({ post }) {
                         </p>
 
                         <p id="s-comment">
-                          {/* { showMore ? {comments[0]?.text}.length : {comments[0]?.text}.substring(0, 10)}} */}
                           {comments[0]?.text}
                         </p>
                       </div>
@@ -106,7 +81,6 @@ function SplashComments({ post }) {
                           </NavLink>
                         </p>
                         <p id="s-comment">
-                          {/* { showMore ? {comments[0]?.text}.length : {comments[0]?.text}.substring(0, 10)}} */}
                           {comments[0]?.text}
                         </p>
                       </div>
@@ -141,14 +115,11 @@ function SplashComments({ post }) {
                   type="text"
                   name="text"
                   value={text}
-                  // maxLength={5}
                 ></input>
                 <button id="post-button" disabled={!text || text.length > 140}>
                   Post
                 </button>
               </form>
-
-              {/* ERRORS RENDERING HERE!!!!!!!!! */}
               {errors && (
                 <>
                   <div id="errors-render">

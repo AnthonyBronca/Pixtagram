@@ -31,7 +31,6 @@ def validation_errors_to_error_messages(validation_errors):
 def get_all_posts():
     posts = Post.query.order_by(Post.id.desc()).all()
     returnedPosts = {'posts': [post.to_dict() for post in posts]}
-    # print('THIS IS THE RETURNED POSTS \n\n', returnedPosts)
     return {'posts': [post.to_dict() for post in posts]}
 
 # Get One Post
@@ -52,26 +51,14 @@ def get_one_post(id):
 
 @login_required
 def create_post(userId):
-    # currUser = User.query.get(userId)
-    # print('BEFORE CREATEPOST INSTIANZTS')
     form = CreatePostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    # print('INSIDE OF THE NEW POST ROUTE' )
-    # print('\n\n')
-
     if form.validate_on_submit():
-        # AWS needed - magic
-        # validate incoming url
-        # get new url from AWS
         if "img_url" in request.files:
-
             image = request.files["img_url"]
-            # print("image ======== \n\n", image)
-
             if not allowed_file(image.filename):
                 return {"errors": ["Image file type not permitted"]}, 400
-
             image.filename = get_unique_filename(image.filename)
 
             upload = upload_file_to_s3(image)
@@ -81,11 +68,9 @@ def create_post(userId):
 
             url = upload["url"]
 
-        # print('CREATE HAS BEEN VALIDATED')
 
         new_post = Post(
             user_id=userId,
-            # img_url=form.data["img_url"],
             img_url=url,
             caption=form.data["caption"]
         )
@@ -94,8 +79,6 @@ def create_post(userId):
         db.session.commit()
         return new_post.to_dict()
 
-    # print('END OF ROUTE')
-    # print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -110,16 +93,12 @@ def edit_post(postId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        # print('EDIT HAS BEEN VALIDATED')
-
         post.caption = form.data["caption"]
 
         db.session.add(post)
         db.session.commit()
         return post.to_dict()
-        # return {"user": user.to_dict()}   example from user_routes edit
-    # print('END OF ROUTE')
-    # print(form.errors)
+
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -130,9 +109,7 @@ def delete_post(post_id):
     post = Post.query.get(post_id)
     db.session.delete(post)
     db.session.commit()
-    # get_one_post(post_id)
     return post.to_dict()
-    # return
 
 
 # add like to post, PUT
@@ -152,10 +129,7 @@ def like_post(post_id, user_id):
 def remove_like(post_id, user_id):
     post = Post.query.get(post_id)
     user = User.query.get(user_id)
-
-    # print("post likes before!!!! \n\n", post.post_likes)
     post.post_likes.remove(user)
     db.session.commit()
-    # print("post likes after!!!! \n\n", post.post_likes)
 
     return post.to_dict()

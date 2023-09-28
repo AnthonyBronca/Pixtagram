@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { createPostThunk } from "../../store/post";
-// import * as sessionActions from "../../store/session";
 import { closeButton, postImageModalIcon } from "../NavBar/Navicons";
 import "./modals.css";
 
@@ -46,7 +45,6 @@ const CreatePost = ({ hideModal, changePostIcon }) => {
     const post = await dispatch(createPostThunk(user.id, form));
 
     if (post.errors) {
-      // console.log("CREATE POST HAS ERRORS", post.errors)
       setErrors(post.errors);
       setSharing(false)
       setShare(true)
@@ -61,8 +59,6 @@ const CreatePost = ({ hideModal, changePostIcon }) => {
 
     return post;
   };
-
-  // console.log("Errors from CREATE POST \n\n", errors)
 
   return (
     <div>

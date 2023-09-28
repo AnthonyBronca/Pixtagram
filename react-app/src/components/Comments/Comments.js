@@ -13,10 +13,7 @@ function Comments({ postId }) {
   const comments = useSelector((state) => state?.comments?.comments_list);
   const currUser = useSelector((state) => state?.session?.user?.id);
 
-  // const [isLoaded, setIsLoaded] = useState(false)
-
   const deleteComment = async (e, commentId) => {
-    // console.log("What is the thunk getting?", commentId)
     await dispatch(deleteCommentThunk(commentId)).then(() =>
       dispatch(getCommentsThunk(postId))
     );
@@ -24,12 +21,10 @@ function Comments({ postId }) {
 
   useEffect(() => {
     dispatch(getCommentsThunk(postId));
-    //   }
   }, [dispatch]);
 
   return (
     <>
-      {/* <div className="page-container"> */}
         {comments ? (
           <div className="comments-components">
             {comments.map((comment, idx) => (
@@ -74,7 +69,6 @@ function Comments({ postId }) {
         ) : (
           <LoadingSpinner />
         )}
-      {/* </div> */}
     </>
   );
 }

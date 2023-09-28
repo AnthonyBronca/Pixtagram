@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useHistory, useParams } from "react-router-dom";
 import { getOnePostThunk } from "../../store/post";
-// import daysSincePost from "./helpers";
 import { commentIcon } from "./postIcons";
 import "./post.css";
 import { dotDotDotIcon } from "../Splash/SplashIcons";
@@ -12,7 +11,6 @@ import PostModal from "./PostModal";
 import Comments from "../Comments/Comments";
 import { createCommentThunk, getCommentsThunk } from "../../store/comment";
 import checkmark from "../CheckMark/checkmark.png";
-// import { closeButton } from "../NavBar/Navicons";
 import PostLikes from "./PostLikes";
 import LikesModal from "./LikesModal";
 
@@ -21,36 +19,23 @@ function Post() {
   const history = useHistory();
   const post = useSelector((state) => state?.posts?.post);
   //DID YOU ENCOUNTER AN ERROR?! TRY NPM INSTALL MOMENT --SAVE
-
-  // need userId for creating a comment
   const currUser = useSelector((state) => state?.session?.user?.id);
-  // console.log("Maica USER ID", currUser);
   const currPost = useSelector((state) => state?.posts?.post?.id);
-  // console.log("This is current post id", currPost);
-  // const [owner, setOwner] = useState(false);
-  // const [likeStatus, setLikeStatus] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showPostOptions, setShowPostOptions] = useState(false);
-  // useState to create a comment
   const [text, setText] = useState("");
-  // useState to setErrors for making comments
   const [errors, setErrors] = useState([]);
 
   const [showLikes, setShowLikes] = useState(false);
   const [postForViewLikes, setPostForViewLikes] = useState();
 
   const { postId } = useParams();
-  // console.log('Hey Maica --> POST ID', postId)
-  // const [date, setDate] = useState("");
   const userId = post?.user_id;
-  // console.log('We need the user id', post?.user_id)
 
-  useEffect(async () => {
-    // if (currUser == userId) {
-    //   setOwner(true);
-    // }
 
-    let response = await dispatch(getOnePostThunk(postId));
+  useEffect(() => {
+
+    let response = dispatch(getOnePostThunk(postId));
 
     if (response.id === undefined) {
       history.push("/page-not-found");
@@ -58,45 +43,24 @@ function Post() {
     dispatch(getCommentsThunk(postId)).then(() => setIsLoaded(true));
   }, [isLoaded]);
 
-  // if(isLoaded){
-  //   setDate(response)
-  // }
-  //posting
-  // const date = daysSincePost(post)
-
-  // handleSubmit for creating a comment
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postId = currPost;
     const userId = currUser;
     const form = { text };
     const comment = await dispatch(createCommentThunk(userId, postId, form));
-    // console.log("COMMENT HERE \n\n", comment);
-    // history.push(`/`)
     if (comment.errors) {
-      // console.log("COMMENT ERRORS \n\n", comment.errors);
-
       setErrors(comment.errors);
     } else {
       await dispatch(getCommentsThunk(postId));
       setText("");
-      // console.log("TROUBLE");
-      // window.location.reload()
+
     }
   };
 
-  //
   const toProfile = (e) => {
     history.push(`/users/users/${post?.user?.id}`);
   };
-
-  // console.log("post comment errors", errors);
-
-  // function changeHeart(e) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   likeStatus === false ? setLikeStatus(true) : setLikeStatus(false);
-  // }
 
   const openPostOptions = () => {
     setShowPostOptions(true);
@@ -222,36 +186,25 @@ function Post() {
                     <p className="caption">{post?.caption}</p>
                   </div>
                   <div className="comment-section">
-                    {/* <p>Here go the comments</p> */}
                     <Comments postId={postId} />
                   </div>
                 </div>
                 <div className="bottom-right">
                   <div></div>
-                  {/* p-line crates the lines */}
                   <div className="p-line"></div>
 
                   <div className="post-icons">
-                    {/* <div
-                    style={{ cursor: "pointer" }}
-                    onClick={(e) => changeHeart(e)}
-                  >
-                    {likeStatus === false ? likeHeart : likeHeartFilledIn}
-                  </div> */}
-
                     <div>
                       <PostLikes post={post} sessionId={currUser} />
                     </div>
 
                     <div
-                      // onClick={(e) => console.log(e.target, "e.target", e.relatedTarget.addEventListener('text-area-box'), "e.related")}
                       className="comment-icon-post"
                     >
                       <label htmlFor="for-input-focus">{commentIcon}</label>
                     </div>
                   </div>
                   <div className="liked-by">
-                    {/* <span className="liked-by-line">{`Liked by Demo and 45 others`}</span> */}
                     {Object.keys(post.post_likes).length === 0 && (
                       <div className="liked-by-line">Be the first to like</div>
                     )}
@@ -291,25 +244,7 @@ function Post() {
                         <textarea
                           className="comment-form"
                           id="for-input-focus"
-                          onBlur={(e) => {
-                            if (e.currentTarget === e.target) {
-                              // console.log("unfocused input box");
-                            }
-                            if (!e.currentTarget.contains(e.relatedTarget)) {
-                              // console.log("clicking somewhere else entirely");
-                            }
-                          }}
-                          onFocus={(e) => {
-                            if (e.currentTarget === e.target) {
-                              // console.log("focusing on input box");
-                            }
-                            if (!e.currentTarget.contains(e.relatedTarget)) {
-                              // console.log("clicking on myself???");
-                            }
-                          }}
-                          // value={"text-area-box"}
                           placeholder="Add a comment..."
-                          // below for creating a comment
                           type="text"
                           name="text"
                           onChange={(e) => setText(e.target.value)}
@@ -317,8 +252,6 @@ function Post() {
                           rows="2"
                           cols="28"
                         ></textarea>
-                        {/* <button disabled={true} className="post-comment-button">
-                         */}
                         <button disabled={!text} id="post-comment-button">
                           {" "}
                           Post{" "}
@@ -330,9 +263,6 @@ function Post() {
               </div>
             </div>
           </div>
-          {/* <div id='footer'>
-            <div id='footer-line'></div>
-           </div> */}
         </div>
       </>
     );

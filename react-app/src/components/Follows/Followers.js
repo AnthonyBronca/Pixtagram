@@ -10,8 +10,6 @@ function Followers({userId, hideFollowers}) {
 
     const followersObj = useSelector((state) => state.userReducer.userFollowers)
 
-    // console.log("Followers from COMPONENT", followersObj)
-
     let followers;
 
     if (followersObj) {
@@ -22,13 +20,9 @@ function Followers({userId, hideFollowers}) {
 
     useEffect(() => {
         (async() => {
-
-            // let idk = await dispatch(getFollowersThunk(userId))
             await dispatch(getFollowersThunk(userId))
-            // console.log("Hi IDK \n\n",idk)
         })()
-        // let idk = dispatch(getFollowersThunk(userId))
-        // console.log("This is IDK \n\n",idk)
+
     }, [dispatch])
 
     const goToProfile = async(followerId) => {
@@ -42,7 +36,6 @@ function Followers({userId, hideFollowers}) {
     {followers?.length === 0 ? <div className="noFollows">No Followers</div> :
     followers?.map((follower, idx) => (
 
-        // <Link key={idx} to={`/users/${follower.id}`}>{follower.username}</Link>
         <div className="eachFollowName" key={idx} onClick={() => goToProfile(follower.id)}> {follower.username}</div>
     ))
     }
