@@ -1,13 +1,13 @@
 # Pixtagram
 
 ## Navigation
-[Live Site]()
-[MVP Feature List](https://github.com/BriRob/Pixtagram/wiki/MVP-Feature-List) |
-[Database Scheme](https://github.com/BriRob/Pixtagram/wiki/Pixtagram-DB-Schema) |
-[User Stories](https://github.com/BriRob/Pixtagram/wiki/Pixtagram-User-Stories) |
-[React Components](https://github.com/BriRob/Pixtagram/wiki/Pixtagram-Components) |
-[Routes](https://github.com/BriRob/Pixtagram/wiki/Front-End-Routes)
-[Anthony's Portfolio](https://anthonybronca.github.io/anthony_portfolio/)
+- [Live Site](https://pixtagram.onrender.com/login)
+- [MVP Feature List](https://github.com/BriRob/Pixtagram/wiki/MVP-Feature-List) 
+- [Database Scheme](https://github.com/BriRob/Pixtagram/wiki/Pixtagram-DB-Schema)
+- [User Stories](https://github.com/BriRob/Pixtagram/wiki/Pixtagram-User-Stories)
+- [React Components](https://github.com/BriRob/Pixtagram/wiki/Pixtagram-Components)
+- [Routes](https://github.com/BriRob/Pixtagram/wiki/Front-End-Routes)
+- [Anthony's Portfolio](https://anthonybronca.github.io/anthony_portfolio/)
 
 ## Overview
 Pixtagram is a pixel perfect clone of dark themed [Instagram](https://www.instagram.com/) where users can share posts with other users. They can show their support by liking and commenting other's posts.
