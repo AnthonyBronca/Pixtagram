@@ -11,7 +11,7 @@ class Post(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     img_url = db.Column(db.String(255), nullable=False)
     caption = db.Column(db.Text, default='')
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
