@@ -1,4 +1,5 @@
-from app.models import db, Comment
+from app.models import db, Comment, SCHEMA, environment
+from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
@@ -76,5 +77,11 @@ def seed_comments():
 
 
 def undo_comments():
-    db.session.execute('TRUNCATE comments RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM comments"))
+
     db.session.commit()
+    # db.session.execute('TRUNCATE comments RESTART IDENTITY CASCADE;')
+    # db.session.commit()

@@ -1,4 +1,5 @@
-from app.models import db, likes
+from app.models import db, likes, environment, SCHEMA
+from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
@@ -18,5 +19,11 @@ def seed_likes():
 
 
 def undo_likes():
-    db.session.execute('TRUNCATE likes RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM likes"))
+
     db.session.commit()
+    # db.session.execute('TRUNCATE likes RESTART IDENTITY CASCADE;')
+    # db.session.commit()

@@ -1,4 +1,5 @@
-from app.models import db, User, Post
+from app.models import db, User, Post, environment, SCHEMA
+from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
@@ -155,6 +156,15 @@ def seeder():
 
 
 def undo_seeder():
-    db.session.execute('TRUNCATE posts RESTART IDENTITY CASCADE;')
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.posts RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM posts"))
+        db.session.execute(text("DELETE FROM users"))
+
+
     db.session.commit()
+    # db.session.execute('TRUNCATE posts RESTART IDENTITY CASCADE;')
+    # db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    # db.session.commit()

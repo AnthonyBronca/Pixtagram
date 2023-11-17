@@ -1,5 +1,6 @@
 FROM --platform=amd64 node:16 as frontend
 
+
 WORKDIR /react-app
 
 COPY ./react-app/package*.json .
@@ -11,11 +12,12 @@ COPY ./react-app .
 RUN npm run build
 
 
+
 # Start with the python:3.9 image
 FROM --platform=amd64 python:3.9
-# REACT_APP_BASE_URL -> Your deployment URL
-ENV REACT_APP_BASE_URL=https://pixtagram.herokuapp.com/
 # FLASK_APP -> entry point to your flask app
+WORKDIR /var/www
+
 ENV FLASK_APP=app
 # FLASK_ENV -> Tell flask to use the production server
 ENV FLASK_ENV=production
@@ -40,22 +42,25 @@ ENV DATABASE_URL=${DATABASE_URL}
 ARG SCHEMA=pixtagram_schema
 ENV SCHEMA=${SCHEMA}
 
-WORKDIR /var/www
 # Copy all the files from your repo to the working directory
-COPY Procfile .
-COPY requirements.txt .
-COPY migrations ./migrations
-COPY .flaskenv .
-COPY app ./app
+# COPY Procfile .
+# COPY requirements.txt .
+# COPY migrations ./migrations
+# COPY .flaskenv .
+# COPY app ./app
+# COPY bin ./bin
+COPY . .
 
 RUN pip install -r requirements.txt
 RUN pip install psycopg2[binary]
 
+COPY --from=frontend /react-app/build/* app/static/
 
-COPY --from=frontend /react-app/build/* ./app/static/
 
 # Start the flask environment by setting our
 # closing command to gunicorn app:app
-COPY bin ./bin
 EXPOSE 5000
+
+# CMD flask run
+
 CMD ["bash", "./bin/start.sh"]
