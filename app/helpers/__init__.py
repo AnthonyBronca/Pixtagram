@@ -8,7 +8,7 @@ today_list = []
 for today in todayArr:
     date = int(today)
     today_list.append(date)
-print(today_list) #shows an array as [2022, 6, 2] for today
+# print(today_list) #shows an array as [2022, 6, 2] for today
 
 
 def dates_converter(date_string):
