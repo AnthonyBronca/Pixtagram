@@ -1,6 +1,6 @@
 from email.policy import default
 import datetime
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .likes import likes
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -8,6 +8,9 @@ from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     profile_pic_url = db.Column(db.String, default="https://pixtagrambucket.s3.amazonaws.com/empty_pixter.png")

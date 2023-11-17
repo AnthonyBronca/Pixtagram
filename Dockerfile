@@ -22,19 +22,19 @@ ENV FLASK_ENV=production
 # SQLALCHEMY_ECHO -> Just set it to true
 ENV SQLALCHEMY_ECHO=True
 # Set the directory for upcoming commands to /var/www
-ARG SECRET_KEY
+ARG SECRET_KEY=secret_key
 ENV SECRET_KEY=${SECRET_KEY}
 
-ARG S3_BUCKET
+ARG S3_BUCKET=pixtagrambucket
 ENV S3_BUCKET=${S3_BUCKET}
 
-ARG S3_KEY
+ARG S3_KEY=AKIA6MPDBI3Z2LYQF2NW
 ENV S3_KEY=${S3_KEY}
 
-ARG S3_SECRET
+ARG S3_SECRET=wSJPEQ88GJU6rv/mp4SXuxZvL8SLIDqsv09P2MF9
 ENV S3_SECRET=${S3_SECRET}
 
-ARG DATABASE_URL
+ARG DATABASE_URL=postgres://anthony_projects_2xc7_user:dXxAVN25YqeiqPpuSUCzsV0ZylNmGd0F@dpg-cjldh85k5scs73ekvj00-a.ohio-postgres.render.com/anthony_projects_2xc7
 ENV DATABASE_URL=${DATABASE_URL}
 
 ARG SCHEMA=pixtagram_schema

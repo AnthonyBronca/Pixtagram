@@ -1,9 +1,12 @@
 import datetime
 from sqlalchemy import ForeignKey
-from .db import db
+from .db import db, SCHEMA, environment, add_prefix_for_prod
 
 class Comment(db.Model):
     __tablename__ = 'comments'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
