@@ -24,15 +24,6 @@ const addLike = (post) => {
   };
 };
 
-// const createPost = (post) => ({
-//   type: CREATE_POST,
-//   payload: post,
-// });
-
-// const editPost = (post) => ({
-//   type: EDIT_POST,
-//   payload: post,
-// });
 
 const deletePost = (post) => ({
   type: DELETE_POST,

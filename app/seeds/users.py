@@ -14,13 +14,13 @@ def seed_users():
     maica = User(
         profile_pic_url='', full_name='Maica Santos', username='maicaS', email='maica@maica.io', bio="!false: it's funny because it's true.", verified=True, password='pixtagram')
     anthony = User(
-        profile_pic_url='', full_name='Anthony Bronca', username='anthonybronca', email='abronca@admin.io', bio='Can you find the 3 easter eggs in this site?', verified=True, password='pixtagram')
+        profile_pic_url='', full_name='Anthony Bronca', username='anthonybronca', email='abronca@admin.io', bio='Full Stack Software Engineer', verified=True, password='pixtagram')
     agustin = User(
-        profile_pic_url='', full_name='Agustin Zucca', username='agustinZ', email='agustin@agus.io', bio='Argentine in Texas', verified=True, password='pixtagramagus')
+        profile_pic_url='', full_name='Agustin Zucca', username='agustinZ', email='agustin@agus.io', bio='Software Engineer at JPMorgan Chase Texas', verified=True, password='pixtagramagus')
     briana = User(
         profile_pic_url='', full_name='Briana Robinson', username='brianaR', email='briana@bri.io', bio='ATLien that loves music and french fries', verified=True, password='pixtagrambri')
     leah = User(
-        profile_pic_url='', full_name='Leah Stern', username='leahS', email='leah@leah.io', bio='Python enthusiast and Mod Lead extraordinaire', verified=True, password='LeahIsTheBest')
+        profile_pic_url='', full_name='Leah Stern', username='leahS', email='leah@leah.io', bio='Python enthusiast and best Python Instructor', verified=True, password='LeahIsTheBest')
     stee = User(
         profile_pic_url='', full_name='Stee', username='stee301', email='stee@stee.io', bio='DIT traveling everywhere, Where should I go next?', verified=False, password='stee301')
     chere = User(
@@ -42,15 +42,9 @@ def seed_users():
     db.session.commit()
 
 
-# Uses a raw SQL query to TRUNCATE the users table.
-# SQLAlchemy doesn't have a built in function to do this
-# TRUNCATE Removes all the data from the table, and RESET IDENTITY
-# resets the auto incrementing primary key, CASCADE deletes any
-# dependent entities
 def undo_users():
     if(environment == "production"):
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-    # db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
     db.session.commit()

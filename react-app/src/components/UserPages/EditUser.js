@@ -10,11 +10,11 @@ import {
 import "./EditUser.css";
 import { authenticate, logout } from "../../store/session";
 
-function EditUser() {
+function EditUser({sessionUser}) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const sessionUser = useSelector((state) => state.session.user);
+  // const sessionUser = useSelector((state) => state.session.user);
   const currentUser = useSelector((state) => state.userReducer.user);
   // const users = useSelector((state) => state.userReducer.users);
   const { userId } = useParams();
@@ -25,20 +25,12 @@ function EditUser() {
     sessionUser?.profile_pic_url
   );
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [userName, setUserName] = useState(sessionUser?.username);
 
   const [errors, setErrors] = useState([]);
   const [preImg, setPreImg] = useState(sessionUser?.profile_pic_url);
   const [showPostOptions, setShowPostOptions] = useState(false);
   const [demoUser, setDemoUser] = useState(false);
 
-  // const setFunc = (currentUser) => {
-  //   setBiography(currentUser?.bio);
-  //   setProfilePicUrl();
-  //   setFullName(currentUser?.full_name);
-  // };
-
-  // console.log("******************CURRSUSER", currentUser);
 
   useEffect(() => {
     // const controller = new AbortController();

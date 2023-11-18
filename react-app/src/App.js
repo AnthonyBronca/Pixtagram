@@ -34,13 +34,12 @@ function App() {
   return (
     <BrowserRouter>
       {session && <NavBar />}
-
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
         <ProtectedRoute path="/users/:userId/edit" exact={true}>
-          <EditUser />
+          <EditUser sessionUser={session}/>
         </ProtectedRoute>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />

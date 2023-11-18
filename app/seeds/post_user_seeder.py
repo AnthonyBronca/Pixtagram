@@ -15,13 +15,13 @@ def seeder():
     maica = User(
         profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/Maica_seeder.jpg', full_name='Maica Santos', username='maicaS', email='maica@maica.io', bio="!false: it's funny because it's true.", verified=True, password='pixtagram')
     anthony = User(
-        profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/anthony_profile_pic_seeder.png', full_name='Anthony Bronca', username='anthonybronca', email='abronca@admin.io', bio='Can you find the 3 easter eggs in this site?', verified=True, password='pixtagram')
+        profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/anthony_profile_pic_seeder.png', full_name='Anthony Bronca', username='anthonybronca', email='abronca@admin.io', bio='Full-Stack Software Engineer', verified=True, password='pixtagram')
     agustin = User(
-        profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/agustin_seeder.jpg', full_name='Agustin Zucca', username='agustinZ', email='agustin@agus.io', bio='Argentine in Texas', verified=True, password='pixtagramagus')
+        profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/agustin_seeder.jpg', full_name='Agustin Zucca', username='agustinZ', email='agustin@agus.io', bio='Software Engineer at JPMorgan Chase', verified=True, password='pixtagramagus')
     briana = User(
         profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/bri_profile_seeder.jpeg', full_name='Briana Robinson', username='brianaR', email='briana@bri.io', bio='ATLien that loves music and french fries', verified=True, password='pixtagrambri')
     leah = User(
-        profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/leah_profile_pic_seeder.png', full_name='Leah Stern', username='leah_s', email='leah@leah.io', bio='Python enthusiast and Mod Lead extraordinaire', verified=True, password='LeahIsTheBest')
+        profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/leah_profile_pic_seeder.png', full_name='Leah Stern', username='leah_s', email='leah@leah.io', bio='Python enthusiast and best Instructor', verified=True, password='LeahIsTheBest')
     stee = User(
         profile_pic_url='https://pixtagrambucket.s3.amazonaws.com/stee_profile_seeder.jpeg', full_name='Stee', username='stee301', email='stee@stee.io', bio='DIT traveling everywhere, Where should I go next?', verified=False, password='stee301')
     chere = User(
@@ -165,6 +165,3 @@ def undo_seeder():
 
 
     db.session.commit()
-    # db.session.execute('TRUNCATE posts RESTART IDENTITY CASCADE;')
-    # db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
-    # db.session.commit()
