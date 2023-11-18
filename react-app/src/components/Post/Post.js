@@ -37,9 +37,9 @@ function Post() {
 
     let response = dispatch(getOnePostThunk(postId));
 
-    if (response.id === undefined) {
-      history.push("/page-not-found");
-    }
+    // if (response.id === undefined) {
+    //   history.push("/page-not-found");
+    // }
     dispatch(getCommentsThunk(postId)).then(() => setIsLoaded(true));
   }, [isLoaded]);
 

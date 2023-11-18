@@ -16,8 +16,10 @@ from .seeds import seed_commands
 
 from .config import Config
 
-app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
+# app = Flask(__name__)
+
+app = Flask(__name__, static_folder='/static', static_url_path='')
 
 # Setup login manager
 login = LoginManager(app)
@@ -64,6 +66,9 @@ def inject_csrf_token(response):
             'FLASK_ENV') == 'production' else None,
         httponly=True)
     return response
+
+
+
 
 
 @app.route('/', defaults={'path': ''})

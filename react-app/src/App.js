@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate());
+      dispatch(authenticate());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -66,8 +66,8 @@ function App() {
         <Route path="/page-not-found">
           <PageNotFound />
         </Route>
-        <Route render={() => <Redirect to={{pathname: "/page-not-found"}} />} />
-        <PageNotFound />
+        {/* <Route render={() => <Redirect to={{pathname: "/page-not-found"}} />} /> */}
+        {/* <PageNotFound /> */}
       </Switch>
     </BrowserRouter>
   );

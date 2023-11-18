@@ -44,15 +44,20 @@ ENV SCHEMA=${SCHEMA}
 
 # Copy all the files from your repo to the working directory
 # COPY Procfile .
-# COPY requirements.txt .
-# COPY migrations ./migrations
-# COPY .flaskenv .
-# COPY app ./app
-# COPY bin ./bin
-COPY . .
+COPY requirements.txt .
 
+COPY migrations ./migrations
+COPY .flaskenv .
+COPY app ./app
+# # COPY react-app ./react-app
+COPY bin ./bin
+
+#Commenting this in and all the copies above it out works. Why?
+
+# COPY . .
 RUN pip install -r requirements.txt
 RUN pip install psycopg2[binary]
+
 
 COPY --from=frontend /react-app/build/* app/static/
 

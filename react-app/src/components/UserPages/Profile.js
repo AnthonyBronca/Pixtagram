@@ -31,32 +31,17 @@ function User() {
 
 
   const followersObj = useSelector((state) => state?.userReducer.userFollowers);
-  console.log("Show me Followers Obj", followersObj);
 
 
   let followers;
 
   if (followersObj) {
     followers = Object.values(followersObj);
-    // console.log("What are followers? \n\n", followers)
   }
 
-  // const followers = Object.values(followersObj);
-
-  // let bats = followers?.filter(follower => follower.id === 11)
-  // console.log("show me",bats)
-
-  console.log("Followers Array from obj \n\n", followers);
-  console.log(
-    "WILL THIS BE TRUE followers \n\n",
-    followers?.filter((follower) => follower.id === sessionUser.id).length === 0
-  );
 
   const { userId } = useParams();
   const verified = user?.verified;
-
-  // console.log("user followers!!! \n\n", user.followers.length)
-  // console.log("user following!!! \n\n", user.following.length)
 
   function postCounter(posts) {
     let count = 0;
@@ -99,9 +84,9 @@ function User() {
     setShowFollowers(true);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     if (sessionUser) {
-      let response = await dispatch(getUserThunk(userId));
+      let response = dispatch(getUserThunk(userId));
 
       if (response.id === undefined) {
         history.push("/page-not-found");
@@ -109,11 +94,7 @@ function User() {
         dispatch(getAllPostsThunk()).then(() => setIsLoaded(true));
       }
 
-      (async () => {
-        // let someFollowers = await dispatch(getFollowersThunk(userId));
-        await dispatch(getFollowersThunk(userId));
-        // console.log("Followers from useEffect \n\n", someFollowers);
-      })();
+        dispatch(getFollowersThunk(userId))
 
       // // .then(() => {
       //     if (pathname !== `/users/${userId}`) {
@@ -121,8 +102,9 @@ function User() {
       //     }
 
       // }
-      // if(user === undefined){
-      //   history.push('/page-not-found')
+      if(user === undefined){
+        history.push('/page-not-found')
+      }
     }
   }, [location]);
 
